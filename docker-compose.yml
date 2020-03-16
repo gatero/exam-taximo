@@ -1,0 +1,29 @@
+version: '3.7'
+services:
+  postgres:
+    image: $POSTGRES_IMAGE
+    container_name: $POSTGRES_CONTAINER_NAME
+    working_dir: $WORKING_DIR
+    volumes:
+      - $PWD/src/postgresql/data/postgresql.conf:$WORKING_DIR/data/postgresql.conf
+      - $PWD/src/postgresql/queries:$WORKING_DIR/queries
+    expose:
+      - $POSTGRES_PORT
+    env_file:
+      - .env
+  api:
+    image: $API_IMAGE
+    container_name: $API_CONTAINER_NAME
+    command: bash -c "yarn nodemon -w src -i src/postgresql -x yarn start"
+    working_dir: $WORKING_DIR
+    volumes:
+      - .:$WORKING_DIR
+    ports:
+      - $API_PORT:$API_PORT
+    depends_on:
+      - $POSTGRES_CONTAINER_NAME
+    env_file:
+      - .env
+networks:
+  default:
+    name: $NETWORK
