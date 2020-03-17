@@ -1,7 +1,7 @@
 import {Request, RestBindings, get, param, ResponseObject} from '@loopback/rest';
 import {inject} from '@loopback/context';
 
-import Shop from '../route-finder';
+import Shop from '../shop';
 
 /**
  * OpenAPI response for meet()
