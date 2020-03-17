@@ -1,6 +1,8 @@
 import {Request, RestBindings, get, param, ResponseObject} from '@loopback/rest';
 import {inject} from '@loopback/context';
 
+import Shop from '../route-finder';
+
 /**
  * OpenAPI response for meet()
  */
@@ -35,28 +37,17 @@ export class meetController {
     @param.query.string('checksum') checksum: string,
   ): number {
 
-    const shopOption = {
+    const shopConfig = {
       totalShops: this.getTotalShops(parameters),
       fishTypes: this.getFishTypes(parameters),
-      centers: this.getCenters(shopping_centers),
-      roads: this.getRoads(roads),
+      centers: this.parseStringToArray(shopping_centers),
+      roads: this.parseStringToArray(roads),
     };
 
-    console.log(shopOption);
+    const shop = new Shop(shopConfig);
+    shop.shops.forEach((shop: any) => console.log(shop));
 
     return 30;
-  }
-
-  getTotalShops(parameters: string): number {
-    const [totalShops] = parameters.split(',');
-
-    return parseInt(totalShops);
-  }
-
-  getCenters(shoping_centers: string): any {
-    const parsedShopingCenters = shoping_centers.split('-').map((road) => road.replace(',', ' '));
-
-    return parsedShopingCenters;
   }
 
   getFishTypes(parameters: string): number {
@@ -65,10 +56,15 @@ export class meetController {
     return parseInt(fishTypes);
   }
 
-  getRoads(roads: string): any {
-    const parsedRoads = roads.split('-').map((road) => road.split(','));
+  getTotalShops(parameters: string): number {
+    const [totalShops] = parameters.split(',');
 
-    return parsedRoads;
+    return parseInt(totalShops);
+  }
+
+  parseStringToArray(input: string) {
+    return input.split('-').map((item: any) => (
+      item.split(',').map((value: any) => parseInt(value))
+    ));
   }
 }
-
