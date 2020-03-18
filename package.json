@@ -39,7 +39,8 @@
     "start": "node -r source-map-support/register .",
     "prepublishOnly": "npm run test",
     "lb4": "lb4",
-    "nodemon": "nodemon"
+    "nodemon": "nodemon",
+    "nexe": "nexe"
   },
   "repository": {
     "type": "git"
@@ -78,6 +79,7 @@
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-eslint-plugin": "^2.2.1",
     "eslint-plugin-mocha": "^6.3.0",
+    "nexe": "^3.3.2",
     "nodemon": "^2.0.2",
     "source-map-support": "^0.5.16",
     "typescript": "~3.8.3"

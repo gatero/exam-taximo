@@ -1,6 +1,8 @@
 export default class Shop {
   config: any = {};
   shops: any = [];
+  paths: any = [];
+  pathsNumber: number = 0;
 
   constructor(config: any) {
     Object.assign(this, {config});
@@ -43,16 +45,45 @@ export default class Shop {
 
     paths = paths.reduce((acc: any, current: any) => {
       if (current.from === shopId) {
-        acc.target.push(current);
+        acc.targets.push(current);
       }
 
       if (current.to === shopId) {
-        acc.origin.push(current);
+        acc.origins.push(current);
       }
 
       return acc;
-    }, {origin: [], target: []});
+    }, {origins: [], targets: []});
 
     return paths;
+  }
+
+  followPaths(target: number) {
+    const shop = this.shops.find((shop: any) => shop.id === target);
+    const { origins } = shop.paths;
+
+    origins.forEach((origin: any, index: number) => {
+      const path = this.paths.find((path: any) => (
+        JSON.stringify(path) === JSON.stringify(origin)
+      ));
+
+      if (!path) {
+        this.paths.push(origin);
+        this.followPaths(origin.from);
+      }
+    });
+
+    this.paths = this.paths.reduce((acc: any, current: any) => {
+      if (this.shops.length === current.to) {
+        acc.push([current]);
+      }
+
+      return acc;
+    }, []);
+  }
+
+  getTime() {
+    this.followPaths(this.shops.length);
+    console.log('this.paths: ', this.paths);
   }
 }

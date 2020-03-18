@@ -20,8 +20,10 @@ const MEET_RESPONSE: ResponseObject = {
 /**
  * A simple controller to bounce back http requests
  */
-export class meetController {
-  constructor(@inject(RestBindings.Http.REQUEST) private req: Request) {}
+export class MeetController {
+  constructor(
+    @inject(RestBindings.Http.REQUEST) private req: Request
+  ) {}
 
   // Map to `GET /meet`
   @get('/meet', {
@@ -45,7 +47,7 @@ export class meetController {
     };
 
     const shop = new Shop(shopConfig);
-    shop.shops.forEach((shop: any) => console.log(shop));
+    shop.getTime();
 
     return 30;
   }
