@@ -4,10 +4,10 @@ import {inject} from '@loopback/context';
 import Shop from '../shop';
 
 /**
- * OpenAPI response for meet()
+ * OpenAPI response for shopping_synchronous()
  */
-const MEET_RESPONSE: ResponseObject = {
-  description: 'Meet Response',
+const SHOPPING_SYNCHRONOUS_RESPONSE: ResponseObject = {
+  description: 'shopping_synchronous Response',
   content: {
     'application/x-www-form-urlencoded': {
       schema: {
@@ -20,22 +20,22 @@ const MEET_RESPONSE: ResponseObject = {
 /**
  * A simple controller to bounce back http requests
  */
-export class meetController {
+export class ShoppingSynchronousController {
   constructor(@inject(RestBindings.Http.REQUEST) private req: Request) {}
 
-  // Map to `GET /meet`
-  @get('/meet', {
+  // Map to `GET /shopping_synchronous`
+  @get('/shopping_synchronous', {
     responses: {
-      '200': MEET_RESPONSE,
+      '200': SHOPPING_SYNCHRONOUS_RESPONSE,
     },
   })
-  meet(
+  shopping_synchronous(
     @param.query.string('username') username: string,
     @param.query.string('parameters') parameters: string,
     @param.query.string('shopping_centers') shopping_centers: string,
     @param.query.string('roads') roads: string,
     @param.query.string('checksum') checksum: string,
-  ): number {
+  ): any {
 
     const shopConfig = {
       totalShops: this.getTotalShops(parameters),
@@ -46,7 +46,9 @@ export class meetController {
 
     const shop = new Shop(shopConfig);
 
-    return shop.getTime();
+    return {
+      minimum_time: shop.getTime(),
+    }
   }
 
   getTotalShops(parameters: string): number {
