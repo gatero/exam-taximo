@@ -11,16 +11,6 @@ export class Shop extends Entity {
   @property({
     type: 'string',
   })
-  username?: string;
-
-  @property({
-    type: 'string',
-  })
-  checksum?: string;
-
-  @property({
-    type: 'string',
-  })
   parameters?: string;
 
   @property({

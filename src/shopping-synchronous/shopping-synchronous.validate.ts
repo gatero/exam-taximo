@@ -88,7 +88,7 @@ export class ShoppingSynchronousValidate {
 
     return {
       userExist: user.length ? true : false,
-      userValidationMessage: 'User doesn\'t exist'
+      userValidationMessage: user.length ? '' : 'User doesn\'t exist',
     }
   };
 

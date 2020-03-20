@@ -47,7 +47,6 @@ export class ShoppingSynchronousController {
       if (!userExist) {
         return userValidationMessage;
       }
-
       const {bodyIsValid, bodyValidationMessage} = await this.validate.body(body);
       if (!bodyIsValid) {
         return bodyValidationMessage;
@@ -58,8 +57,13 @@ export class ShoppingSynchronousController {
       const shop = new ShoppingSynchronousHandler(shopConfig);
       const minimum_time = shop.getTime();
 
-      if (userExist && !shopExist) {
-        const created = await this.shopRepository.create({...body, minimum_time});
+      if (userExist && !shopExist && !minimum_time) {
+        const created = await this.shopRepository.create({
+          parameters: body.parameters,
+          shopping_centers: body.shopping_centers,
+          roads: body.roads,
+          minimum_time,
+        });
       }
 
       return { minimum_time };
