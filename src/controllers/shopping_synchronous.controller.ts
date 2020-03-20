@@ -1,12 +1,4 @@
-import {
-  Count,
-  CountSchema,
-  Filter,
-  FilterExcludingWhere,
-  repository,
-  Where,
-} from '@loopback/repository';
-
+import { repository } from '@loopback/repository';
 import {
   Request, 
   RestBindings,
@@ -14,78 +6,32 @@ import {
   requestBody,
   ResponseObject,
 } from '@loopback/rest';
-
 import {Entity, model, property} from '@loopback/repository';
 import {inject} from '@loopback/context';
 
-import Shop from '../shop';
-import {ShopRepository} from '../repositories';
-import {Shop as ShopModel} from '../models/shop.model';
+import {ShopRepository, UserRepository} from '../repositories';
+import checksum, { ChecksumOptions } from 'checksum';
+import {
+  ShoppingSynchronousHandler,
+  ShoppingSynchronousValidate,
+  ShoppingSynchronousSchema,
+  SHOPPING_SYNCHRONOUS_REQUEST,
+  SHOPPING_SYNCHRONOUS_RESPONSE, 
+} from '../shopping-synchronous';
 
-/**
- * OpenAPI response for shopping_synchronous()
- */
-const SHOPPING_SYNCHRONOUS_RESPONSE: ResponseObject = {
-  description: 'shopping_synchronous Response',
-  content: {
-    'application/x-www-form-urlencoded': {
-      schema: {
-        type: 'number',
-      },
-    },
-  },
-};
-
-/**
- * OpenAPI request for shopping_synchronous()
- */
-const SHOPPING_SYNCHRONOUS_REQUEST = {
-  description: 'shopping_synchronous Request',
-  content: {
-    'application/x-www-form-urlencoded': {
-      schema: {
-        type: 'object',
-        properties: {
-          username: {type: 'string'},
-          checksum: {type: 'string'},
-          shopping_centers: {type: 'string'},
-          parameters: {type: 'string'},
-          roads: {type: 'string'},
-        },
-      },
-    },
-  },
-}
-
-/**
- * OpenAPI body definition for shopping_synchronous()
- */
-@model()
-class ShoppingSynchronousRequest {
-  @property()
-  username: string;
-
-  @property()
-  checksum: string;
-
-  @property()
-  parameters: string;
-
-  @property()
-  shopping_centers: string;
-
-  @property()
-  roads: string;
-}
 
 /**
  * A simple controller to bounce back http requests
  */
 export class ShoppingSynchronousController {
+  validate: any = {};
   constructor(
-    @repository(ShopRepository) public shopRepository: ShopRepository,
     @inject(RestBindings.Http.REQUEST) private req: Request,
-  ) {}
+    @repository(UserRepository) public userRepository: UserRepository,
+    @repository(ShopRepository) public shopRepository: ShopRepository,
+  ) {
+    this.validate = new ShoppingSynchronousValidate(userRepository, shopRepository);
+  }
 
   // Map to `GET /shopping_synchronous`
   @post('/shopping_synchronous', {
@@ -94,42 +40,31 @@ export class ShoppingSynchronousController {
     },
   })
   async shopping_synchronous(
-    @requestBody(SHOPPING_SYNCHRONOUS_REQUEST) body: ShoppingSynchronousRequest,
+    @requestBody(SHOPPING_SYNCHRONOUS_REQUEST) body: ShoppingSynchronousSchema,
   ): Promise<any>{
     try {
-      const validateBody = this.validateBody(body);
-      if (validateBody) {
-        return validateBody;  
+      const {userExist, userValidationMessage} = await this.validate.user(body.username, body.checksum);
+      if (!userExist) {
+        return userValidationMessage;
       }
 
-      const {username, checksum, parameters, shopping_centers, roads} = body;
+      const {bodyIsValid, bodyValidationMessage} = await this.validate.body(body);
+      if (!bodyIsValid) {
+        return bodyValidationMessage;
+      }
+
+      const shopExist = await this.validate.shop(body);
       const shopConfig = this.getShopConfig(body);
-      const shop = new Shop(shopConfig);
+      const shop = new ShoppingSynchronousHandler(shopConfig);
       const minimum_time = shop.getTime();
 
-      const found = await this.shopRepository.find({
-        limit: 1,
-        where: {
-          username,
-          checksum,
-          parameters,
-          shopping_centers,
-          roads,
-        },
-        fields: {
-          minimum_time: true
-        }
-      });
-
-      if (!found.length) {
+      if (userExist && !shopExist) {
         const created = await this.shopRepository.create({...body, minimum_time});
       }
 
-      return {
-        minimum_time: found[0].minimum_time,
-      };
+      return { minimum_time };
     } catch(error) {
-      return error.message;
+      return new Error(error);
     }
   }
 
@@ -142,30 +77,6 @@ export class ShoppingSynchronousController {
       centers: this.getCenters(shopping_centers),
       roads: this.getRoads(roads),
     };
-  }
-
-  validateBody(body: ShoppingSynchronousRequest) {
-    const {username, checksum, parameters, shopping_centers, roads} = body;
-
-    if (!username) {
-      return 'The username can not be empty';
-    }
-
-    if (!checksum) {
-      return 'The checksum can not be empty';
-    }
-
-    if (!parameters) {
-      return 'The parameters can not be empty';
-    }
-
-    if (!shopping_centers) {
-      return 'The shopping_centers can not be empty';
-    }
-
-    if (!roads) {
-      return 'The roads can not be empty';
-    }
   }
 
   getTotalShops(parameters: string): number {

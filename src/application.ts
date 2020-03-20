@@ -9,6 +9,8 @@ import {RestApplication} from '@loopback/rest';
 import {ServiceMixin} from '@loopback/service-proxy';
 import path from 'path';
 import {MySequence} from './sequence';
+import {UserRepository, ShopRepository} from './repositories';
+import {ShoppingSynchronousValidate} from './shopping-synchronous';
 
 export class Application extends BootMixin(
   ServiceMixin(RepositoryMixin(RestApplication)),
@@ -38,5 +40,25 @@ export class Application extends BootMixin(
         nested: true,
       },
     };
+  }
+
+  async migrateSchema(options?: any) {
+    await super.migrateSchema(options);
+
+    const userRepository = await this.getRepository(UserRepository);
+    const shopRepository = await this.getRepository(ShopRepository);
+
+    const validate = new ShoppingSynchronousValidate(userRepository, shopRepository);
+
+    const defaultUser = {
+      username: 'taximo_api_user',
+      checksum: 'cd7ced88fb72ee862940d5664555251f9ba044d8478a71a7b70b04bd708c2796',
+    };
+
+    const {userExist} = await validate.user(defaultUser.username, defaultUser.checksum);
+    if (!userExist) {
+      const created = await userRepository.create(defaultUser);
+      console.log('user created', created);
+    }
   }
 }

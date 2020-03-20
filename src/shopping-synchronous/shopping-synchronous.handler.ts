@@ -19,7 +19,8 @@ class Node {
   }
 }
 
-export default class Shop {
+export class ShoppingSynchronousHandler {
+
   config: any = {};
   shops: any = [];
 
