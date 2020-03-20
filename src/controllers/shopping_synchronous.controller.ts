@@ -76,19 +76,53 @@ export class ShoppingSynchronousController {
   async shopping_synchronous(
     @requestBody(SHOPPING_SYNCHRONOUS_REQUEST) body: ShoppingSynchronousRequest,
   ): Promise<any>{
+    try {
+      const validateBody = this.validateBody(body);
+
+      if (validateBody) {
+        return validateBody;  
+      }
+
+      const {username, checksum, parameters, shopping_centers, roads} = body;
+
+      const shopConfig = {
+        totalShops: this.getTotalShops(parameters),
+        fishTypes: this.getFishTypes(parameters),
+        centers: this.getCenters(shopping_centers),
+        roads: this.getRoads(roads),
+      };
+
+      const shop = new Shop(shopConfig);
+
+      return {
+        minimum_time: shop.getTime(),
+      };
+    } catch(error) {
+      return error.message;
+    }
+  }
+
+  validateBody(body: ShoppingSynchronousRequest): string {
     const {username, checksum, parameters, shopping_centers, roads} = body;
 
-    const shopConfig = {
-      totalShops: this.getTotalShops(parameters),
-      fishTypes: this.getFishTypes(parameters),
-      centers: this.getCenters(shopping_centers),
-      roads: this.getRoads(roads),
-    };
+    if (!username) {
+      return 'The username can not be empty';
+    }
 
-    const shop = new Shop(shopConfig);
+    if (!checksum) {
+      return 'The checksum can not be empty';
+    }
 
-    return {
-      minimum_time: shop.getTime(),
+    if (!parameters) {
+      return 'The parameters can not be empty';
+    }
+
+    if (!shopping_centers) {
+      return 'The shopping_centers can not be empty';
+    }
+
+    if (!roads) {
+      return 'The roads can not be empty';
     }
   }
 
