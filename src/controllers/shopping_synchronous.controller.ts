@@ -103,27 +103,45 @@ export class ShoppingSynchronousController {
       }
 
       const {username, checksum, parameters, shopping_centers, roads} = body;
-
-      const shopConfig = {
-        totalShops: this.getTotalShops(parameters),
-        fishTypes: this.getFishTypes(parameters),
-        centers: this.getCenters(shopping_centers),
-        roads: this.getRoads(roads),
-      };
-
+      const shopConfig = this.getShopConfig(body);
       const shop = new Shop(shopConfig);
       const minimum_time = shop.getTime();
 
-      const created = await this.shopRepository.create(body);
+      const found = await this.shopRepository.find({
+        limit: 1,
+        where: {
+          username,
+          checksum,
+          parameters,
+          shopping_centers,
+          roads,
+        },
+        fields: {
+          minimum_time: true
+        }
+      });
 
-      console.log('created: ', created);
+      if (!found.length) {
+        const created = await this.shopRepository.create({...body, minimum_time});
+      }
 
       return {
-        minimum_time: shop.getTime(),
+        minimum_time: found[0].minimum_time,
       };
     } catch(error) {
       return error.message;
     }
+  }
+
+  getShopConfig(body: any) {
+    const {username, checksum, parameters, shopping_centers, roads} = body;
+
+    return {
+      totalShops: this.getTotalShops(parameters),
+      fishTypes: this.getFishTypes(parameters),
+      centers: this.getCenters(shopping_centers),
+      roads: this.getRoads(roads),
+    };
   }
 
   validateBody(body: ShoppingSynchronousRequest) {
