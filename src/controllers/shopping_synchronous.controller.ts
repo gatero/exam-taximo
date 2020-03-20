@@ -26,6 +26,30 @@ const SHOPPING_SYNCHRONOUS_RESPONSE: ResponseObject = {
   },
 };
 
+/**
+ * OpenAPI request for shopping_synchronous()
+ */
+const SHOPPING_SYNCHRONOUS_REQUEST = {
+  description: 'shopping_synchronous Request',
+  content: {
+    'application/x-www-form-urlencoded': {
+      schema: {
+        type: 'object',
+        properties: {
+          username: {type: 'string'},
+          checksum: {type: 'string'},
+          shopping_centers: {type: 'string'},
+          parameters: {type: 'string'},
+          roads: {type: 'string'},
+        },
+      },
+    },
+  },
+}
+
+/**
+ * OpenAPI body definition for shopping_synchronous()
+ */
 @model()
 class ShoppingSynchronousRequest {
   @property()
@@ -42,23 +66,6 @@ class ShoppingSynchronousRequest {
 
   @property()
   roads: string;
-}
-
-const SHOPPING_SYNCHRONOUS_REQUEST = {
-  content: {
-    'application/x-www-form-urlencoded': {
-      schema: {
-        type: 'object',
-        properties: {
-          username: {type: 'string'},
-          checksum: {type: 'string'},
-          shopping_centers: {type: 'string'},
-          parameters: {type: 'string'},
-          roads: {type: 'string'},
-        },
-      },
-    },
-  },
 }
 
 /**
@@ -78,7 +85,6 @@ export class ShoppingSynchronousController {
   ): Promise<any>{
     try {
       const validateBody = this.validateBody(body);
-
       if (validateBody) {
         return validateBody;  
       }
@@ -102,7 +108,7 @@ export class ShoppingSynchronousController {
     }
   }
 
-  validateBody(body: ShoppingSynchronousRequest): string {
+  validateBody(body: ShoppingSynchronousRequest) {
     const {username, checksum, parameters, shopping_centers, roads} = body;
 
     if (!username) {
