@@ -19,19 +19,14 @@ export class Shop extends Entity {
   checksum?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
   })
-  totalShops?: number;
-
-  @property({
-    type: 'number',
-  })
-  fishTypes?: number;
+  parameters?: string;
 
   @property({
     type: 'string',
   })
-  centers?: string;
+  shopping_centers?: string;
 
   @property({
     type: 'string',

@@ -1,15 +1,25 @@
 import {
+  Count,
+  CountSchema,
+  Filter,
+  FilterExcludingWhere,
+  repository,
+  Where,
+} from '@loopback/repository';
+
+import {
   Request, 
   RestBindings,
   post,
   requestBody,
   ResponseObject,
 } from '@loopback/rest';
+
 import {Entity, model, property} from '@loopback/repository';
 import {inject} from '@loopback/context';
 
 import Shop from '../shop';
-
+import {ShopRepository} from '../repositories';
 import {Shop as ShopModel} from '../models/shop.model';
 
 /**
@@ -72,7 +82,10 @@ class ShoppingSynchronousRequest {
  * A simple controller to bounce back http requests
  */
 export class ShoppingSynchronousController {
-  constructor(@inject(RestBindings.Http.REQUEST) private req: Request) {}
+  constructor(
+    @repository(ShopRepository) public shopRepository: ShopRepository,
+    @inject(RestBindings.Http.REQUEST) private req: Request,
+  ) {}
 
   // Map to `GET /shopping_synchronous`
   @post('/shopping_synchronous', {
@@ -99,6 +112,11 @@ export class ShoppingSynchronousController {
       };
 
       const shop = new Shop(shopConfig);
+      const minimum_time = shop.getTime();
+
+      const created = await this.shopRepository.create(body);
+
+      console.log('created: ', created);
 
       return {
         minimum_time: shop.getTime(),
