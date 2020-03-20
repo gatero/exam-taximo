@@ -1,16 +1,16 @@
 import {DefaultCrudRepository} from '@loopback/repository';
-import {Test, TestRelations} from '../models';
+import {Shop, ShopRelations} from '../models';
 import {PostgresDataSource} from '../datasources';
 import {inject} from '@loopback/core';
 
-export class TestRepository extends DefaultCrudRepository<
-  Test,
-  typeof Test.prototype.id,
-  TestRelations
+export class ShopRepository extends DefaultCrudRepository<
+  Shop,
+  typeof Shop.prototype.id,
+  ShopRelations
 > {
   constructor(
     @inject('datasources.postgres') dataSource: PostgresDataSource,
   ) {
-    super(Test, dataSource);
+    super(Shop, dataSource);
   }
 }

@@ -1,12 +1,22 @@
 import {Entity, model, property} from '@loopback/repository';
 
 @model()
-export class Test extends Entity {
+export class Shop extends Entity {
   @property({
     id: true,
     generated: true,
   })
   id: number;
+
+  @property({
+    type: 'string',
+  })
+  username?: string;
+
+  @property({
+    type: 'string',
+  })
+  checksum?: string;
 
   @property({
     type: 'number',
@@ -31,15 +41,15 @@ export class Test extends Entity {
   @property({
     type: 'number',
   })
-  solution?: string;
+  minimum_time?: string;
 
-  constructor(data?: Partial<Test>) {
+  constructor(data?: Partial<Shop>) {
     super(data);
   }
 }
 
-export interface TestRelations {
+export interface ShopRelations {
   // describe navigational properties here
 }
 
-export type TestWithRelations = Test & TestRelations;
+export type ShopWithRelations = Shop & ShopRelations;

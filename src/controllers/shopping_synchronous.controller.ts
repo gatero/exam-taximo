@@ -1,7 +1,16 @@
-import {Request, RestBindings, get, param, ResponseObject} from '@loopback/rest';
+import {
+  Request, 
+  RestBindings,
+  post,
+  requestBody,
+  ResponseObject,
+} from '@loopback/rest';
+import {Entity, model, property} from '@loopback/repository';
 import {inject} from '@loopback/context';
 
 import Shop from '../shop';
+
+import {Shop as ShopModel} from '../models/shop.model';
 
 /**
  * OpenAPI response for shopping_synchronous()
@@ -17,6 +26,41 @@ const SHOPPING_SYNCHRONOUS_RESPONSE: ResponseObject = {
   },
 };
 
+@model()
+class ShoppingSynchronousRequest {
+  @property()
+  username: string;
+
+  @property()
+  checksum: string;
+
+  @property()
+  parameters: string;
+
+  @property()
+  shopping_centers: string;
+
+  @property()
+  roads: string;
+}
+
+const SHOPPING_SYNCHRONOUS_REQUEST = {
+  content: {
+    'application/x-www-form-urlencoded': {
+      schema: {
+        type: 'object',
+        properties: {
+          username: {type: 'string'},
+          checksum: {type: 'string'},
+          shopping_centers: {type: 'string'},
+          parameters: {type: 'string'},
+          roads: {type: 'string'},
+        },
+      },
+    },
+  },
+}
+
 /**
  * A simple controller to bounce back http requests
  */
@@ -24,18 +68,15 @@ export class ShoppingSynchronousController {
   constructor(@inject(RestBindings.Http.REQUEST) private req: Request) {}
 
   // Map to `GET /shopping_synchronous`
-  @get('/shopping_synchronous', {
+  @post('/shopping_synchronous', {
     responses: {
       '200': SHOPPING_SYNCHRONOUS_RESPONSE,
     },
   })
-  shopping_synchronous(
-    @param.query.string('username') username: string,
-    @param.query.string('parameters') parameters: string,
-    @param.query.string('shopping_centers') shopping_centers: string,
-    @param.query.string('roads') roads: string,
-    @param.query.string('checksum') checksum: string,
-  ): any {
+  async shopping_synchronous(
+    @requestBody(SHOPPING_SYNCHRONOUS_REQUEST) body: ShoppingSynchronousRequest,
+  ): Promise<any>{
+    const {username, checksum, parameters, shopping_centers, roads} = body;
 
     const shopConfig = {
       totalShops: this.getTotalShops(parameters),
