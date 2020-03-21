@@ -95,6 +95,28 @@ describe('ShoppingSynchronous', () => {
       want: "The roads can not be empty",
       type: 'equal',
     },
+    {
+      input: {
+        username: 'taximo_api_user',
+        checksum: 'cd7ced88fb72ee862940d5664555251f9ba044d8478a71a7b70b04bd708c2796',
+        parameters: '3,10,3',
+        shopping_centers: '2,1,2-1,3-0-2,1,3-1,2-1,3',
+        roads: '1,2,572-4,2,913-2,6,220-1,3,579-2,3,808-5,3,298-6,1,927-4,5,171-1,5,671-2,5,463',
+      },
+      want: "The number of shopping centers must be equal to the amount of shopping_centers",
+      type: 'equal',
+    },
+    {
+      input: {
+        username: 'taximo_api_user',
+        checksum: 'cd7ced88fb72ee862940d5664555251f9ba044d8478a71a7b70b04bd708c2796',
+        parameters: '6,9,3',
+        shopping_centers: '2,1,2-1,3-0-2,1,3-1,2-1,3',
+        roads: '1,2,572-4,2,913-2,6,220-1,3,579-2,3,808-5,3,298-6,1,927-4,5,171-1,5,671-2,5,463',
+      },
+      want: "The number of fish types must be equal to the amount of roads",
+      type: 'equal',
+    },
   ];
 
   before('setupApplication', async () => {

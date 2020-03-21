@@ -25,6 +25,9 @@ import {
  */
 export class ShoppingSynchronousController {
   validate: any = {};
+  shopConfig: any = {};
+  requestBody: any = {};
+
   constructor(
     @inject(RestBindings.Http.REQUEST) private req: Request,
     @repository(UserRepository) public userRepository: UserRepository,
@@ -43,25 +46,31 @@ export class ShoppingSynchronousController {
     @requestBody(SHOPPING_SYNCHRONOUS_REQUEST) body: ShoppingSynchronousSchema,
   ): Promise<any>{
     try {
-      const {userExist, userValidationMessage} = await this.validate.user(body.username, body.checksum);
+      this.requestBody = body;
+      const {userExist, userValidationMessage} = await this.validate.user(this.requestBody.username, this.requestBody.checksum);
       if (!userExist) {
         return userValidationMessage;
       }
-      const {bodyIsValid, bodyValidationMessage} = await this.validate.body(body);
+      const {bodyIsValid, bodyValidationMessage} = await this.validate.body(this.requestBody);
       if (!bodyIsValid) {
         return bodyValidationMessage;
       }
 
-      const shopExist = await this.validate.shop(body);
-      const shopConfig = this.getShopConfig(body);
-      const shop = new ShoppingSynchronousHandler(shopConfig);
+      const shopExist = await this.validate.shop(this.requestBody);
+
+      const {isValidShopConfig, shopConfigValidationMessage} = this.getShopConfig(this.requestBody);
+      if (!isValidShopConfig) {
+        return shopConfigValidationMessage;
+      }
+
+      const shop = new ShoppingSynchronousHandler(this.shopConfig);
       const minimum_time = shop.getTime();
 
       if (userExist && !shopExist && !minimum_time) {
         const created = await this.shopRepository.create({
-          parameters: body.parameters,
-          shopping_centers: body.shopping_centers,
-          roads: body.roads,
+          parameters: this.requestBody.parameters,
+          shopping_centers: this.requestBody.shopping_centers,
+          roads: this.requestBody.roads,
           minimum_time,
         });
       }
@@ -72,21 +81,46 @@ export class ShoppingSynchronousController {
     }
   }
 
-  getShopConfig(body: any) {
-    const {username, checksum, parameters, shopping_centers, roads} = body;
+  getShopConfig(body: any): any {
+    Object.assign(this.shopConfig, {
+      totalShops: this.getTotalShops(body.parameters),
+      fishTypes: this.getFishTypes(body.parameters),
+      centers: this.getCenters(body.shopping_centers),
+      roads: this.getRoads(body.roads),
+    });
+    const {totalShops, centers, roads} = this.shopConfig;
+    const [,fishTypes] = body.parameters.split(',');
+
+    if (totalShops !== centers.length) {
+      return {
+        isValidShopConfig: false,
+        shopConfigValidationMessage: 'The number of shopping centers must be equal to the amount of shopping_centers',
+      }
+    }
+
+    if (parseInt(fishTypes) !== roads.length) {
+      return {
+        isValidShopConfig: false,
+        shopConfigValidationMessage: 'The number of fish types must be equal to the amount of roads',
+      }
+    }
 
     return {
-      totalShops: this.getTotalShops(parameters),
-      fishTypes: this.getFishTypes(parameters),
-      centers: this.getCenters(shopping_centers),
-      roads: this.getRoads(roads),
-    };
+      isValidShopConfig: true,
+      shopConfigValidationMessage: undefined,
+    }
   }
 
   getTotalShops(parameters: string): number {
     const [totalShops] = parameters.split(',');
 
     return parseInt(totalShops);
+  }
+
+  getFishTypes(parameters: string): number {
+    const [,,fishTypes] = parameters.split(',');
+
+    return parseInt(fishTypes);
   }
 
   getCenters(shoping_centers: string): any {
@@ -98,12 +132,6 @@ export class ShoppingSynchronousController {
   });
 
     return parsedCenters;
-  }
-
-  getFishTypes(parameters: string): number {
-    const [,,fishTypes] = parameters.split(',');
-
-    return parseInt(fishTypes);
   }
 
   getRoads(roads: string): any {
