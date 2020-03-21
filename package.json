@@ -71,7 +71,7 @@
     "@loopback/build": "^4.0.0",
     "@loopback/cli": "^2.0.1",
     "@loopback/eslint-config": "^6.0.0",
-    "@loopback/testlab": "^2.0.0",
+    "@loopback/testlab": "^2.0.1",
     "@types/checksum": "^0.1.30",
     "@types/node": "^10.17.17",
     "@typescript-eslint/eslint-plugin": "^2.22.0",
