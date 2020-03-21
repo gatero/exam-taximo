@@ -14,7 +14,7 @@ services:
   api:
     image: $API_IMAGE
     container_name: $API_CONTAINER_NAME
-    command: bash -c "yarn nodemon -w src -i src/postgresql -x yarn start"
+    command: bash -c "yarn nodemon -w src -i src/postgresql -x env NODE_ENV=development yarn start"
     working_dir: $WORKING_DIR
     volumes:
       - .:$WORKING_DIR
