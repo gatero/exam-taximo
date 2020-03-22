@@ -20,7 +20,7 @@ class Node {
 }
 
 export class ShoppingSynchronousHandler {
-
+  nodes: any [];
   config: any = {};
   shops: any = [];
 
@@ -31,41 +31,38 @@ export class ShoppingSynchronousHandler {
   getShops() {
     const { totalShops, centers } = this.config;
 
-    return [...new Array(totalShops)].map((shop: any, index: number) => (
+    this.nodes = [...new Array(totalShops)].map((shop: any, index: number) => (
       new Node(centers[index].reduce((acc: any, current: any) => (
         acc + (2 ** (current- 1))
       ), 0))
     ));
   }
 
-  fillShopChildren(nodes: any) {
+  fillShopChildren() {
     const { roads } = this.config;
 
     roads.forEach((road: any, index: number) => {
-      nodes[road[0] - 1].children.push({
-        child: nodes[road[1] - 1],
+      this.nodes[road[0] - 1].children.push({
+        child: this.nodes[road[1] - 1],
         time: road[2]
       });
-      nodes[road[1] - 1].children.push({
-        child: nodes[road[0] - 1],
+      this.nodes[road[1] - 1].children.push({
+        child: this.nodes[road[0] - 1],
         time: road[2]
       });
     });
-
-    return nodes;
   }
 
-  fillFastesTime(nodes: any) {
+  fillFastesTime() {
     const nodesToUpdate = new Set();
-    nodes[0].addTime(0, 0);
-    nodesToUpdate.add(nodes[0]);
+    this.nodes[0].addTime(0, 0);
+    nodesToUpdate.add(this.nodes[0]);
 
-    while (nodesToUpdate.size > 0) { // fill out fastest times
+    while (nodesToUpdate.size > 0) {
       const node: any = Array.from(nodesToUpdate)[0];
       nodesToUpdate.delete(node);
 
-      for (let i = 0; i < node.children.length; i++) {
-        const child = node.children[i];
+      node.children.forEach((child: any) => {
         let didUpdate = false;
         node.fastestTimes.forEach((time: any, index: any) => {
           if (child.child.addTime(index, time + child.time)) {
@@ -75,15 +72,13 @@ export class ShoppingSynchronousHandler {
         if (didUpdate) {
           nodesToUpdate.add(child.child);
         }
-      }
+      });
     }
-
-    return nodes;
   }
 
-  getBetterTime(nodes: any) {
+  getBetterTime() {
     const { totalShops, fishTypes } = this.config;
-    const times = nodes[totalShops - 1].fastestTimes;
+    const times = this.nodes[totalShops - 1].fastestTimes;
     let fastestTime: any = undefined;
 
     for (let i = 1; i < times.length; i++) {
@@ -103,12 +98,10 @@ export class ShoppingSynchronousHandler {
   }
 
   getTime() {
-    const { totalShops, fishTypes, centers, roads } = this.config;
+    this.getShops();
+    this.fillShopChildren();
+    this.fillFastesTime();
 
-    let nodes = this.getShops();
-    nodes = this.fillShopChildren(nodes);
-    nodes = this.fillFastesTime(nodes);
-
-    return this.getBetterTime(nodes);
+    return this.getBetterTime();
   }
 }
