@@ -1,6 +1,16 @@
-import {environment} from '../constants';
+import { environment } from '../environment';
 
 const dataSource = {
+  test: {
+    "name": "postgres",
+    "connector": "postgresql",
+    "url": "",
+    "host": "postgres",
+    "port": 5432,
+    "user": "admin",
+    "password": "root",
+    "database": "taximo"
+  },
   development: {
     "name": "postgres",
     "connector": "postgresql",
