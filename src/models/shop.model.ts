@@ -1,5 +1,9 @@
 import {Entity, model, property} from '@loopback/repository';
 
+/**
+ * @class Shop
+ * @description Model definition for shop model
+ * */
 @model()
 export class Shop extends Entity {
   @property({
@@ -26,7 +30,7 @@ export class Shop extends Entity {
   @property({
     type: 'number',
   })
-  minimum_time?: string;
+  minimum_time?: number;
 
   constructor(data?: Partial<Shop>) {
     super(data);

@@ -1,34 +1,29 @@
-class Node {
-  fishes: any;
-  children: any;
-  fastestTimes: any;
+import Node from './shopping-synchronous.node';
 
-  constructor(_fishes: any) {
-      this.fishes = _fishes;
-      this.children = [];
-      this.fastestTimes = [];
-  }
-
-  addTime(_fishes: any, time: any) {
-      const f = _fishes | this.fishes;
-      if (this.fastestTimes[f] === undefined || time < this.fastestTimes[f]) {
-          this.fastestTimes[f] = time;
-          return true;
-      }
-      return false;
-  }
-}
-
+/**
+ * @class ShoppingSynchronousHandler
+ * @description This class handle the preprocessed request to obtain the  minimum_time
+ * */
 export class ShoppingSynchronousHandler {
   nodes: any [];
   config: any = {};
   shops: any = [];
 
+  /**
+   * @constructs
+   * @param {object} config
+   * */
   constructor(config: any) {
     Object.assign(this, {config});
   };
 
-  getShops() {
+  /**
+   * @function fillShops
+   * @description this create the initial state for the tree of nodes
+   * each node is generated with the number of fishes by center
+   * @returns {void}
+   * */
+  fillShops() {
     const { totalShops, centers } = this.config;
 
     this.nodes = [...new Array(totalShops)].map((shop: any, index: number) => (
@@ -38,7 +33,13 @@ export class ShoppingSynchronousHandler {
     ));
   }
 
-  fillShopChildren() {
+  /**
+   * @function fillShopChildren
+   * @description this create the initial state for the tree of nodes
+   * each node is generated with the number of fishes by centero
+   * @returns {void}
+   * */
+  fillShopChildren(): void {
     const { roads } = this.config;
 
     roads.forEach((road: any, index: number) => {
@@ -53,15 +54,18 @@ export class ShoppingSynchronousHandler {
     });
   }
 
-  fillFastesTime() {
+  /**
+   * @function fillFastesTime
+   * @description Iterate the tree of nodes and set the fastesTime for each child
+   * @returns {void}
+   * */
+  fillFastesTime(): void {
     const nodesToUpdate = new Set();
     this.nodes[0].addTime(0, 0);
     nodesToUpdate.add(this.nodes[0]);
-
     while (nodesToUpdate.size > 0) {
       const node: any = Array.from(nodesToUpdate)[0];
       nodesToUpdate.delete(node);
-
       node.children.forEach((child: any) => {
         let didUpdate = false;
         node.fastestTimes.forEach((time: any, index: any) => {
@@ -69,6 +73,7 @@ export class ShoppingSynchronousHandler {
             didUpdate = true;
           }
         });
+
         if (didUpdate) {
           nodesToUpdate.add(child.child);
         }
@@ -76,29 +81,41 @@ export class ShoppingSynchronousHandler {
     }
   }
 
-  getBetterTime() {
+  /**
+   * @function getBetterTime
+   * @description get the minimum time that those cats will spend before they meet
+   * @returns {number} minimum_time
+   * */
+  getBetterTime(): number {
     const { totalShops, fishTypes } = this.config;
-    const times = this.nodes[totalShops - 1].fastestTimes;
-    let fastestTime: any = undefined;
+    let times = this.nodes[totalShops - 1].fastestTimes;
+    let minimum_time: number = 0;
 
     for (let i = 1; i < times.length; i++) {
-      if (times[i] !== undefined && (fastestTime === undefined || times[i] < fastestTime)) {
+      if (times[i] && (!minimum_time || times[i] < minimum_time)) {
         for (let j = i; j < times.length; j++) {
-          if (times[j] !== undefined && ((i | j) === (2 ** fishTypes) - 1)) {
+          if (times[j] && ((i | j) === (2 ** fishTypes) - 1)) {
             const slowerTime = Math.max(times[i], times[j]);
-            if (fastestTime === undefined || slowerTime < fastestTime) {
-              fastestTime = slowerTime;
+
+            if (!minimum_time || slowerTime < minimum_time) {
+              minimum_time = slowerTime;
             }
           }
         }
       }
     }
-
-    return fastestTime;
+    
+    return minimum_time;
   }
 
-  getTime() {
-    this.getShops();
+  /**
+   * @function getTime
+   * @description Run the main process where the data parsers are invoked
+   * once the data was iparsed ithis returns the better time
+   * @returns {number} minimum_time
+   * */
+  getTime(): number {
+    this.fillShops();
     this.fillShopChildren();
     this.fillFastesTime();
 

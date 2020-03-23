@@ -40,6 +40,7 @@
     "prepublishOnly": "npm run test",
     "lb4": "lb4",
     "nodemon": "nodemon",
+    "typedoc": "typedoc",
     "nexe": "nexe"
   },
   "repository": {
@@ -79,6 +80,9 @@
     "@typescript-eslint/parser": "^2.22.0",
     "chai": "^4.2.0",
     "checksum": "^0.1.1",
+    "esdoc": "^1.1.0",
+    "esdoc-standard-plugin": "^1.0.0",
+    "esdoc-typescript-plugin": "^1.0.1",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-eslint-plugin": "^2.2.1",
@@ -86,6 +90,7 @@
     "nexe": "^3.3.2",
     "nodemon": "^2.0.2",
     "source-map-support": "^0.5.16",
+    "typedoc": "^0.17.3",
     "typescript": "~3.8.3"
   }
 }

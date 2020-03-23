@@ -1,0 +1,280 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>taximo</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">taximo</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1>taximo</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<a href="#taximo" id="taximo" style="color: inherit; text-decoration: none;">
+					<h1>taximo</h1>
+				</a>
+				<p><a href="http://loopback.io/"><img src="https://github.com/strongloop/loopback-next/raw/master/docs/site/imgs/branding/Powered-by-LoopBack-Badge-(blue)-@2x.png" alt="LoopBack"></a></p>
+				<a href="#overview" id="overview" style="color: inherit; text-decoration: none;">
+					<h3>Overview</h3>
+				</a>
+				<p>This proyect was developed using <code>docker</code>, <code>postgresql</code>, <code>nodejs</code> and <code>loopback</code>, and was published at <a href="https://exam-taximo.herokuapp.com/">heroku</a></p>
+				<a href="#about-the-data-model" id="about-the-data-model" style="color: inherit; text-decoration: none;">
+					<h3>About the data model</h3>
+				</a>
+				<p>I used LoopBack, an API REST Framework developed by IBM, is a framework based on the MVC dessign pattern, this means that each  layer in the program is separated of each others, it provides a CLI which automates and standarize the development flow.</p>
+				<p>I used <code>Logical Data Model(LDM)</code> for every logical part of the application, since environment configuration until the params validation and formating layers.</p>
+				<p>The <code>Physical Data Model(PDM)</code> was defined by loopback, this means that every part of data is handled using the ORM, and the injection patterns  provided by loopback.</p>
+				<p>Dessign pattern</p>
+				<p>Loopback MVC
+				There are a lot of ORMs software which we can use for this purpose,  but those frameworks let the developer a bunch of ways to generate destructurated code. Loopback offers just one way to do the things, and it has preconfigured and ready all the tools that you could need, preventing the installation of a lot of extra libraries which are commonly imported just to use one or two functions and increassing our proyect size.</p>
+				<a href="#how-to" id="how-to" style="color: inherit; text-decoration: none;">
+					<h3>How to....</h3>
+				</a>
+				<a href="#running-the-proyect" id="running-the-proyect" style="color: inherit; text-decoration: none;">
+					<h4>Running the proyect</h4>
+				</a>
+				<ul>
+					<li>You need to have docker installed and running in your machine</li>
+					<li>Make sure that you are not using the port 3000 on your machine</li>
+					<li>The name of the services are <code>api</code> and <code>postgres</code></li>
+				</ul>
+				<pre><code class="language-sh"><span class="hljs-comment"># first you'll need clone this repository</span>
+git <span class="hljs-built_in">clone</span> git@github.com:gatero/exam-taximo.git
+
+<span class="hljs-comment"># then you need to run docker-compose(I prefer to start docker in detached mood with -d)</span>
+docker-compose up <span class="hljs-comment"># -d for detached mode</span></code></pre>
+				<a href="#showing-containers" id="showing-containers" style="color: inherit; text-decoration: none;">
+					<h4>Showing containers</h4>
+				</a>
+				<pre><code class="language-sh"><span class="hljs-comment"># If you need, you can list the containers</span>
+docker ps -a
+
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
+627498b38d63        node:12.14.1        <span class="hljs-string">"docker-entrypoint.s…"</span>   50 minutes ago      Up 50 minutes       0.0.0.0:3000-&gt;3000/tcp   api
+77cfa35d426b        postgres:12.2       <span class="hljs-string">"docker-entrypoint.s…"</span>   50 minutes ago      Up 50 minutes       5432/tcp                 postgres</code></pre>
+				<a href="#getting-the-logs-from-containers" id="getting-the-logs-from-containers" style="color: inherit; text-decoration: none;">
+					<h4>Getting the logs from containers</h4>
+				</a>
+				<pre><code class="language-sh"><span class="hljs-comment">#  From api service</span>
+docker logs -f api
+
+<span class="hljs-comment"># from postgres</span>
+docker logs -f postgres</code></pre>
+				<a href="#accesing-to-the-database-service" id="accesing-to-the-database-service" style="color: inherit; text-decoration: none;">
+					<h4>Accesing to the database service</h4>
+				</a>
+				<pre><code class="language-sh"><span class="hljs-comment"># You can se the database configuration depending on your environment </span>
+cat <span class="hljs-variable">$EXAM_TAXIMO</span>/src/datasources/postgres.datasource.config.ts 
+
+<span class="hljs-comment"># The password for development is root</span>
+docker <span class="hljs-built_in">exec</span> -it postgres psql -d taximo -h postgres -p 5432 -U admin -W</code></pre>
+				<a href="#running-the-tests-for-shopping_synchronous" id="running-the-tests-for-shopping_synchronous" style="color: inherit; text-decoration: none;">
+					<h4>Running the tests for shopping_synchronous</h4>
+				</a>
+				<pre><code class="language-sh"><span class="hljs-comment">#  With the containers running you can run the test suite for the `shopping_synchronous` endpoint</span>
+docker <span class="hljs-built_in">exec</span> -it api yarn <span class="hljs-built_in">test</span> --reporter nyan --watch</code></pre>
+				<a href="#once-you-have-the-project-running" id="once-you-have-the-project-running" style="color: inherit; text-decoration: none;">
+					<h2>Once you have the project running</h2>
+				</a>
+				<p>You could go to localhost:3000 and will see the explorer interface to make tests on the endpoint, by doing click on <code>try it out</code> you will be able to test the endpoint with the explorer user interface.</p>
+				<p>Or... you can test the services with curl as follows:</p>
+				<pre><code class="language-sh"><span class="hljs-comment"># first test data:</span>
+<span class="hljs-comment"># 5 5 5</span>
+<span class="hljs-comment"># 1 1</span>
+<span class="hljs-comment"># 1 2</span>
+<span class="hljs-comment"># 1 3</span>
+<span class="hljs-comment"># 1 4</span>
+<span class="hljs-comment"># 1 5</span>
+<span class="hljs-comment"># 1 2 10</span>
+<span class="hljs-comment"># 1 3 10</span>
+<span class="hljs-comment"># 2 4 10</span>
+<span class="hljs-comment"># 3 5 10</span>
+<span class="hljs-comment"># 4 5 10</span>
+curl -v -X POST <span class="hljs-string">'http://localhost:3000/shopping_synchronous'</span> -d <span class="hljs-string">'username=taximo_api_user&amp;parameters=5,5,5&amp;shopping_centers=1,1-1,2-1,3-1,4-1,5&amp;roads=1,2,10-1,3,10-2,4,10-3,5,10-4,5,10&amp;checksum=cd7ced88fb72ee862940d5664555251f9ba044d8478a71a7b70b04bd708c2796'</span> -H <span class="hljs-string">'Content-Type: application/x-www-form-urlencoded'</span>
+
+<span class="hljs-comment"># second test data:</span>
+<span class="hljs-comment"># 6 10 3</span>
+<span class="hljs-comment"># 2 1 2</span>
+<span class="hljs-comment"># 1 3</span>
+<span class="hljs-comment"># 0</span>
+<span class="hljs-comment"># 2 1 3</span>
+<span class="hljs-comment"># 1 2</span>
+<span class="hljs-comment"># 1 3</span>
+<span class="hljs-comment"># 1 2 572</span>
+<span class="hljs-comment"># 4 2 913</span>
+<span class="hljs-comment"># 2 6 220</span>
+<span class="hljs-comment"># 1 3 579</span>
+<span class="hljs-comment"># 2 3 808</span>
+<span class="hljs-comment"># 5 3 298</span>
+<span class="hljs-comment"># 6 1 927</span>
+<span class="hljs-comment"># 4 5 171</span>
+<span class="hljs-comment"># 1 5 671</span>
+<span class="hljs-comment"># 2 5 463</span>
+curl -v -X POST <span class="hljs-string">'http://localhost:3000/shopping_synchronous'</span> -d <span class="hljs-string">'username=taximo_api_user&amp;parameters=6,10,3&amp;shopping_centers=2,1,2-1,3-0-2,1,3-1,2-1,3&amp;roads=1,2,572-4,2,913-2,6,220-1,3,579-2,3,808-5,3,298-6,1,927-4,5,171-1,5,671-2,5,463&amp;checksum=cd7ced88fb72ee862940d5664555251f9ba044d8478a71a7b70b04bd708c2796'</span> -H <span class="hljs-string">'Content-Type: application/x-www-form-urlencoded'</span></code></pre>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/___tests___acceptance_shopping_synchronous_controller_acceptance_.html">&quot;__tests__/acceptance/shopping_<wbr>synchronous.controller.acceptance&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/___tests___acceptance_test_helper_.html">&quot;__tests__/acceptance/test-<wbr>helper&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_application_.html">&quot;application&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_controllers_index_.html">&quot;controllers/index&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_controllers_shopping_synchronous_controller_.html">&quot;controllers/shopping_<wbr>synchronous.controller&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_datasources_index_.html">&quot;datasources/index&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_datasources_postgres_datasource_.html">&quot;datasources/postgres.datasource&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_datasources_postgres_datasource_config_.html">&quot;datasources/postgres.datasource.config&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_environment_index_.html">&quot;environment/index&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_index_.html">&quot;index&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_migrate_.html">&quot;migrate&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_models_index_.html">&quot;models/index&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_models_shop_model_.html">&quot;models/shop.model&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_models_user_model_.html">&quot;models/user.model&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_repositories_index_.html">&quot;repositories/index&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_repositories_shop_repository_.html">&quot;repositories/shop.repository&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_repositories_user_repository_.html">&quot;repositories/user.repository&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_sequence_.html">&quot;sequence&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_shopping_synchronous_index_.html">&quot;shopping-<wbr>synchronous/index&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_shopping_synchronous_shopping_synchronous_definitions_.html">&quot;shopping-<wbr>synchronous/shopping-<wbr>synchronous.definitions&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_shopping_synchronous_shopping_synchronous_handler_.html">&quot;shopping-<wbr>synchronous/shopping-<wbr>synchronous.handler&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_shopping_synchronous_shopping_synchronous_node_.html">&quot;shopping-<wbr>synchronous/shopping-<wbr>synchronous.node&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_shopping_synchronous_shopping_synchronous_validate_.html">&quot;shopping-<wbr>synchronous/shopping-<wbr>synchronous.validate&quot;</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>
