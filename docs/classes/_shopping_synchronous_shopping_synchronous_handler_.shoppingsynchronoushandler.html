@@ -73,7 +73,7 @@
 				<div class="tsd-comment tsd-typography">
 					<dl class="tsd-comment-tags">
 						<dt>description</dt>
-						<dd><p>This class handle the parced request to obtain the  minimum_time</p>
+						<dd><p>This class handle the preprocessed request to obtain the  minimum_time</p>
 						</dd>
 					</dl>
 				</div>
@@ -109,8 +109,8 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_shopping_synchronous_shopping_synchronous_handler_.shoppingsynchronoushandler.html#fillfastestime" class="tsd-kind-icon">fill<wbr>Fastes<wbr>Time</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_shopping_synchronous_shopping_synchronous_handler_.shoppingsynchronoushandler.html#fillshopchildren" class="tsd-kind-icon">fill<wbr>Shop<wbr>Children</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_shopping_synchronous_shopping_synchronous_handler_.shoppingsynchronoushandler.html#fillshops" class="tsd-kind-icon">fill<wbr>Shops</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_shopping_synchronous_shopping_synchronous_handler_.shoppingsynchronoushandler.html#getbettertime" class="tsd-kind-icon">get<wbr>Better<wbr>Time</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_shopping_synchronous_shopping_synchronous_handler_.shoppingsynchronoushandler.html#getshops" class="tsd-kind-icon">get<wbr>Shops</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_shopping_synchronous_shopping_synchronous_handler_.shoppingsynchronoushandler.html#gettime" class="tsd-kind-icon">get<wbr>Time</a></li>
 							</ul>
 						</section>
@@ -129,7 +129,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/gatero/exam-taximo/blob/aa828b1/src/shopping-synchronous/shopping-synchronous.handler.ts#L10">src/shopping-synchronous/shopping-synchronous.handler.ts:10</a></li>
+									<li>Defined in <a href="https://github.com/gatero/exam-taximo/blob/9c2a8dc/src/shopping-synchronous/shopping-synchronous.handler.ts#L10">src/shopping-synchronous/shopping-synchronous.handler.ts:10</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -161,7 +161,7 @@
 					<div class="tsd-signature tsd-kind-icon">config<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/gatero/exam-taximo/blob/aa828b1/src/shopping-synchronous/shopping-synchronous.handler.ts#L9">src/shopping-synchronous/shopping-synchronous.handler.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/gatero/exam-taximo/blob/9c2a8dc/src/shopping-synchronous/shopping-synchronous.handler.ts#L9">src/shopping-synchronous/shopping-synchronous.handler.ts:9</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -171,7 +171,7 @@
 					<div class="tsd-signature tsd-kind-icon">nodes<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/gatero/exam-taximo/blob/aa828b1/src/shopping-synchronous/shopping-synchronous.handler.ts#L8">src/shopping-synchronous/shopping-synchronous.handler.ts:8</a></li>
+							<li>Defined in <a href="https://github.com/gatero/exam-taximo/blob/9c2a8dc/src/shopping-synchronous/shopping-synchronous.handler.ts#L8">src/shopping-synchronous/shopping-synchronous.handler.ts:8</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -181,7 +181,7 @@
 					<div class="tsd-signature tsd-kind-icon">shops<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> = []</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/gatero/exam-taximo/blob/aa828b1/src/shopping-synchronous/shopping-synchronous.handler.ts#L10">src/shopping-synchronous/shopping-synchronous.handler.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/gatero/exam-taximo/blob/9c2a8dc/src/shopping-synchronous/shopping-synchronous.handler.ts#L10">src/shopping-synchronous/shopping-synchronous.handler.ts:10</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -198,7 +198,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/gatero/exam-taximo/blob/aa828b1/src/shopping-synchronous/shopping-synchronous.handler.ts#L62">src/shopping-synchronous/shopping-synchronous.handler.ts:62</a></li>
+									<li>Defined in <a href="https://github.com/gatero/exam-taximo/blob/9c2a8dc/src/shopping-synchronous/shopping-synchronous.handler.ts#L62">src/shopping-synchronous/shopping-synchronous.handler.ts:62</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -207,7 +207,7 @@
 									<dd><p>fillFastesTime</p>
 									</dd>
 									<dt>description</dt>
-									<dd><p>Iterate the tree of nodes and set the fastesTime</p>
+									<dd><p>Iterate the tree of nodes and set the fastesTime for each child</p>
 									</dd>
 								</dl>
 							</div>
@@ -225,13 +225,41 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/gatero/exam-taximo/blob/aa828b1/src/shopping-synchronous/shopping-synchronous.handler.ts#L42">src/shopping-synchronous/shopping-synchronous.handler.ts:42</a></li>
+									<li>Defined in <a href="https://github.com/gatero/exam-taximo/blob/9c2a8dc/src/shopping-synchronous/shopping-synchronous.handler.ts#L42">src/shopping-synchronous/shopping-synchronous.handler.ts:42</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<dl class="tsd-comment-tags">
 									<dt>function</dt>
 									<dd><p>fillShopChildren</p>
+									</dd>
+									<dt>description</dt>
+									<dd><p>this create the initial state for the tree of nodes
+										each node is generated with the number of fishes by centero</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="fillshops" class="tsd-anchor"></a>
+					<h3>fill<wbr>Shops</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">fill<wbr>Shops<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/gatero/exam-taximo/blob/9c2a8dc/src/shopping-synchronous/shopping-synchronous.handler.ts#L26">src/shopping-synchronous/shopping-synchronous.handler.ts:26</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>function</dt>
+									<dd><p>fillShops</p>
 									</dd>
 									<dt>description</dt>
 									<dd><p>this create the initial state for the tree of nodes
@@ -253,7 +281,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/gatero/exam-taximo/blob/aa828b1/src/shopping-synchronous/shopping-synchronous.handler.ts#L100">src/shopping-synchronous/shopping-synchronous.handler.ts:100</a></li>
+									<li>Defined in <a href="https://github.com/gatero/exam-taximo/blob/9c2a8dc/src/shopping-synchronous/shopping-synchronous.handler.ts#L89">src/shopping-synchronous/shopping-synchronous.handler.ts:89</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -272,34 +300,6 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="getshops" class="tsd-anchor"></a>
-					<h3>get<wbr>Shops</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Shops<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/gatero/exam-taximo/blob/aa828b1/src/shopping-synchronous/shopping-synchronous.handler.ts#L26">src/shopping-synchronous/shopping-synchronous.handler.ts:26</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<dl class="tsd-comment-tags">
-									<dt>function</dt>
-									<dd><p>getShops</p>
-									</dd>
-									<dt>description</dt>
-									<dd><p>this create the initial state for the tree of nodes
-										each node is generated with the number of fishes by center</p>
-									</dd>
-								</dl>
-							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="gettime" class="tsd-anchor"></a>
 					<h3>get<wbr>Time</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -309,10 +309,22 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/gatero/exam-taximo/blob/aa828b1/src/shopping-synchronous/shopping-synchronous.handler.ts#L122">src/shopping-synchronous/shopping-synchronous.handler.ts:122</a></li>
+									<li>Defined in <a href="https://github.com/gatero/exam-taximo/blob/9c2a8dc/src/shopping-synchronous/shopping-synchronous.handler.ts#L117">src/shopping-synchronous/shopping-synchronous.handler.ts:117</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>function</dt>
+									<dd><p>getTime</p>
+									</dd>
+									<dt>description</dt>
+									<dd><p>Run the main process where the data parsers are invoked
+										once the data was iparsed ithis returns the better time</p>
+									</dd>
+								</dl>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+							<p>minimum_time</p>
 						</li>
 					</ul>
 				</section>
@@ -421,10 +433,10 @@
 								<a href="_shopping_synchronous_shopping_synchronous_handler_.shoppingsynchronoushandler.html#fillshopchildren" class="tsd-kind-icon">fill<wbr>Shop<wbr>Children</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_shopping_synchronous_shopping_synchronous_handler_.shoppingsynchronoushandler.html#getbettertime" class="tsd-kind-icon">get<wbr>Better<wbr>Time</a>
+								<a href="_shopping_synchronous_shopping_synchronous_handler_.shoppingsynchronoushandler.html#fillshops" class="tsd-kind-icon">fill<wbr>Shops</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_shopping_synchronous_shopping_synchronous_handler_.shoppingsynchronoushandler.html#getshops" class="tsd-kind-icon">get<wbr>Shops</a>
+								<a href="_shopping_synchronous_shopping_synchronous_handler_.shoppingsynchronoushandler.html#getbettertime" class="tsd-kind-icon">get<wbr>Better<wbr>Time</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_shopping_synchronous_shopping_synchronous_handler_.shoppingsynchronoushandler.html#gettime" class="tsd-kind-icon">get<wbr>Time</a>
