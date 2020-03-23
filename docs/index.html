@@ -132,42 +132,44 @@ docker <span class="hljs-built_in">exec</span> -it api yarn <span class="hljs-bu
 				</a>
 				<p>You could go to localhost:3000 and will see the explorer interface to make tests on the endpoint, by doing click on <code>try it out</code> you will be able to test the endpoint with the explorer user interface.</p>
 				<p>Or... you can test the services with curl as follows:</p>
-				<p>data for first test:
-					5 5 5
-					1 1
-					1 2
-					1 3
-					1 4
-					1 5
-					1 2 10
-					1 3 10
-					2 4 10
-					3 5 10
-				4 5 10</p>
-				<pre><code class="language-sh"><span class="hljs-comment"># heroku</span>
+				<pre><code class="language-sh"><span class="hljs-comment"># data for first test:</span>
+<span class="hljs-comment"># 5 5 5</span>
+<span class="hljs-comment"># 1 1</span>
+<span class="hljs-comment"># 1 2</span>
+<span class="hljs-comment"># 1 3</span>
+<span class="hljs-comment"># 1 4</span>
+<span class="hljs-comment"># 1 5</span>
+<span class="hljs-comment"># 1 2 10</span>
+<span class="hljs-comment"># 1 3 10</span>
+<span class="hljs-comment"># 2 4 10</span>
+<span class="hljs-comment"># 3 5 10</span>
+<span class="hljs-comment"># 4 5 10</span>
+
+<span class="hljs-comment"># heroku</span>
 curl -v -X POST <span class="hljs-string">'https://exam-taximo.herokuapp.com/shopping_synchronous'</span> -d <span class="hljs-string">'username=taximo_api_user&amp;parameters=5,5,5&amp;shopping_centers=1,1-1,2-1,3-1,4-1,5&amp;roads=1,2,10-1,3,10-2,4,10-3,5,10-4,5,10&amp;checksum=cd7ced88fb72ee862940d5664555251f9ba044d8478a71a7b70b04bd708c2796'</span> -H <span class="hljs-string">'Content-Type: application/x-www-form-urlencoded'</span>
 
 <span class="hljs-comment"># localhost</span>
 curl -v -X POST <span class="hljs-string">'http://localhost:3000/shopping_synchronous'</span> -d <span class="hljs-string">'username=taximo_api_user&amp;parameters=5,5,5&amp;shopping_centers=1,1-1,2-1,3-1,4-1,5&amp;roads=1,2,10-1,3,10-2,4,10-3,5,10-4,5,10&amp;checksum=cd7ced88fb72ee862940d5664555251f9ba044d8478a71a7b70b04bd708c2796'</span> -H <span class="hljs-string">'Content-Type: application/x-www-form-urlencoded'</span></code></pre>
-				<p>data for second test:
-					6 10 3
-					2 1 2
-					1 3
-					0
-					2 1 3
-					1 2
-					1 3
-					1 2 572
-					4 2 913
-					2 6 220
-					1 3 579
-					2 3 808
-					5 3 298
-					6 1 927
-					4 5 171
-					1 5 671
-				2 5 463</p>
-				<pre><code class="language-sh"><span class="hljs-comment"># heroku</span>
+				<pre><code class="language-sh"><span class="hljs-comment"># data for second test:</span>
+<span class="hljs-comment"># 6 10 3</span>
+<span class="hljs-comment"># 2 1 2</span>
+<span class="hljs-comment"># 1 3</span>
+<span class="hljs-comment"># 0</span>
+<span class="hljs-comment"># 2 1 3</span>
+<span class="hljs-comment"># 1 2</span>
+<span class="hljs-comment"># 1 3</span>
+<span class="hljs-comment"># 1 2 572</span>
+<span class="hljs-comment"># 4 2 913</span>
+<span class="hljs-comment"># 2 6 220</span>
+<span class="hljs-comment"># 1 3 579</span>
+<span class="hljs-comment"># 2 3 808</span>
+<span class="hljs-comment"># 5 3 298</span>
+<span class="hljs-comment"># 6 1 927</span>
+<span class="hljs-comment"># 4 5 171</span>
+<span class="hljs-comment"># 1 5 671</span>
+<span class="hljs-comment"># 2 5 463</span>
+
+<span class="hljs-comment"># heroku</span>
 curl -v -X POST <span class="hljs-string">'https://exam-taximo.herokuapp.com/shopping_synchronous'</span> -d <span class="hljs-string">'username=taximo_api_user&amp;parameters=6,10,3&amp;shopping_centers=2,1,2-1,3-0-2,1,3-1,2-1,3&amp;roads=1,2,572-4,2,913-2,6,220-1,3,579-2,3,808-5,3,298-6,1,927-4,5,171-1,5,671-2,5,463&amp;checksum=cd7ced88fb72ee862940d5664555251f9ba044d8478a71a7b70b04bd708c2796'</span> -H <span class="hljs-string">'Content-Type: application/x-www-form-urlencoded'</span>
 
 <span class="hljs-comment"># localhost</span>
