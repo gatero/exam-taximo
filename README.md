@@ -76,19 +76,20 @@ You could go to localhost:3000 and will see the explorer interface to make tests
 
 Or... you can test the services with curl as follows:
 
-data for first test:
-5 5 5
-1 1
-1 2
-1 3
-1 4
-1 5
-1 2 10
-1 3 10
-2 4 10
-3 5 10
-4 5 10
 ~~~sh
+# data for first test:
+# 5 5 5
+# 1 1
+# 1 2
+# 1 3
+# 1 4
+# 1 5
+# 1 2 10
+# 1 3 10
+# 2 4 10
+# 3 5 10
+# 4 5 10
+
 # heroku
 curl -v -X POST 'https://exam-taximo.herokuapp.com/shopping_synchronous' -d 'username=taximo_api_user&parameters=5,5,5&shopping_centers=1,1-1,2-1,3-1,4-1,5&roads=1,2,10-1,3,10-2,4,10-3,5,10-4,5,10&checksum=cd7ced88fb72ee862940d5664555251f9ba044d8478a71a7b70b04bd708c2796' -H 'Content-Type: application/x-www-form-urlencoded'
 
@@ -96,25 +97,26 @@ curl -v -X POST 'https://exam-taximo.herokuapp.com/shopping_synchronous' -d 'use
 curl -v -X POST 'http://localhost:3000/shopping_synchronous' -d 'username=taximo_api_user&parameters=5,5,5&shopping_centers=1,1-1,2-1,3-1,4-1,5&roads=1,2,10-1,3,10-2,4,10-3,5,10-4,5,10&checksum=cd7ced88fb72ee862940d5664555251f9ba044d8478a71a7b70b04bd708c2796' -H 'Content-Type: application/x-www-form-urlencoded'
 ~~~
 
-data for second test:
-6 10 3
-2 1 2
-1 3
-0
-2 1 3
-1 2
-1 3
-1 2 572
-4 2 913
-2 6 220
-1 3 579
-2 3 808
-5 3 298
-6 1 927
-4 5 171
-1 5 671
-2 5 463
 ~~~sh
+# data for second test:
+# 6 10 3
+# 2 1 2
+# 1 3
+# 0
+# 2 1 3
+# 1 2
+# 1 3
+# 1 2 572
+# 4 2 913
+# 2 6 220
+# 1 3 579
+# 2 3 808
+# 5 3 298
+# 6 1 927
+# 4 5 171
+# 1 5 671
+# 2 5 463
+
 # heroku
 curl -v -X POST 'https://exam-taximo.herokuapp.com/shopping_synchronous' -d 'username=taximo_api_user&parameters=6,10,3&shopping_centers=2,1,2-1,3-0-2,1,3-1,2-1,3&roads=1,2,572-4,2,913-2,6,220-1,3,579-2,3,808-5,3,298-6,1,927-4,5,171-1,5,671-2,5,463&checksum=cd7ced88fb72ee862940d5664555251f9ba044d8478a71a7b70b04bd708c2796' -H 'Content-Type: application/x-www-form-urlencoded'
 
